@@ -8,7 +8,6 @@ public class EmpconsoleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EmpconsoleApplication.class, args);
-
     }
 
 }

@@ -20,6 +20,7 @@ import javax.security.auth.login.AccountLockedException;
 
 @RestController
 @RequestMapping("user")
+@CrossOrigin(origins = "*")
 public class UserController {
     private JwtUserDetailsService jwtUserDetailsService;
     private AuthenticationManager authenticationManager;
@@ -35,15 +36,16 @@ public class UserController {
 ///////////////////////////////////////////////////////////////
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody JwtRequest jwtRequest) throws Exception {
+    public ResponseEntity<EmpAccount> login(@RequestBody JwtRequest jwtRequest) throws Exception {
         authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
 
-        final UserDetails userDetails = jwtUserDetailsService
+        final EmpAccount userDetails = jwtUserDetailsService
                 .loadUserByUsername(jwtRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtResponse(token));
+        userDetails.setToken(token);
+        userDetails.setPassword(null);
+        return ResponseEntity.ok(userDetails);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

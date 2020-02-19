@@ -28,16 +28,20 @@ public class EmpAccount implements UserDetails {
     @Column(name = "IS_ACTIVE")
     public int isActive;
 
+    @Transient
+    public String token;
+
 
     public EmpAccount() {
     }
 
-    public EmpAccount(long empId, String userName, String password, String email, int isActive) {
+    public EmpAccount(long empId, String userName, String password, String email, int isActive, String token) {
         this.empId = empId;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.isActive = isActive;
+        this.token = token;
     }
 
     public long getEmpId() {
@@ -54,6 +58,14 @@ public class EmpAccount implements UserDetails {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
