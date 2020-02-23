@@ -1,20 +1,16 @@
 package com.empconsole.jwtconfig;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.empconsole.entities.EmpAccount;
-import com.empconsole.exceptions.exceptionTypes.LoginExceptionException;
+import com.empconsole.exceptions.exceptionTypes.EmailUniqueException;
+import com.empconsole.exceptions.exceptionTypes.LoginException;
+import com.empconsole.exceptions.exceptionTypes.UserNameUniqueException;
 import com.empconsole.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +33,7 @@ public class JwtUserDetailsService implements UserDetailsService {
             empList = this.userRepository.findByUserName(username);
         else empList = this.userRepository.findByEmail(username);
         if (empList.size() == 0)
-            throw new LoginExceptionException();
+            throw new LoginException();
 
         return empList.get(0);
 
@@ -45,9 +41,19 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 
     public EmpAccount registerNewUser(EmpAccount user) {
+        EmpAccount empAccount = null;
         user.setIsActive(1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return this.userRepository.save(user);
+        try {
+            empAccount = this.userRepository.save(user);
+
+        } catch (Exception e) {
+            if(e.getMessage().contains("USER_NAME_UNIQUE"))
+                throw  new UserNameUniqueException(user.userName);
+            else if(e.getMessage().contains("EMAIL_UNIQUE"))
+                throw new EmailUniqueException(user.email);
+        }
+        return empAccount;
     }
 
 

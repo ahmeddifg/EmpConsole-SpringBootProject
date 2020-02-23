@@ -1,9 +1,8 @@
 package com.empconsole.controller;
 
 import com.empconsole.entities.EmpAccount;
-import com.empconsole.exceptions.exceptionTypes.LoginExceptionException;
+import com.empconsole.exceptions.exceptionTypes.LoginException;
 import com.empconsole.jwtconfig.JwtRequest;
-import com.empconsole.jwtconfig.JwtResponse;
 import com.empconsole.jwtconfig.JwtTokenUtil;
 import com.empconsole.jwtconfig.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
-import javax.security.auth.login.AccountLockedException;
 
 @RestController
 @RequestMapping("user")
@@ -59,7 +54,7 @@ public class UserController {
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            throw new LoginExceptionException();
+            throw new LoginException();
         }
     }
 //////////////////sets and gets/////////////////////////////

@@ -17,6 +17,7 @@ public class EmpAccount implements UserDetails {
     @Column(name = "EMP_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long empId;
+
     @Column(name = "USER_NAME")
     public String userName;
     @Column(name = "PASSWORD")
