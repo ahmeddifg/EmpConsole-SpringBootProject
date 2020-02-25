@@ -13,9 +13,10 @@ public class Project {
     private String projectName;
     @Column(name = "PROJECT_SHORT_DESC")
     private String projectShortDesc;
+
     @ManyToOne
     @MapsId("typeId")
-    @JoinColumn(name = "TYPE_ID")
+    @JoinColumn(name = "PROJECT_TYPE" , referencedColumnName = "TYPE_ID")
     private ProjectTypes projectType;
 
     public Project() {

@@ -34,9 +34,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         else empList = this.userRepository.findByEmail(username);
         if (empList.size() == 0)
             throw new LoginException();
-
         return empList.get(0);
-
     }
 
 

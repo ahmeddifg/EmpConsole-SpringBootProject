@@ -10,8 +10,6 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "emp_account")
-@NamedQuery(name = "EmpAccount.findByUserName", query = "select e FROM EmpAccount e WHERE  Upper(e.userName) = Upper( :pUserName )  ")
-@NamedQuery(name = "EmpAccount.findByEmail", query = "select e FROM EmpAccount e WHERE  Upper(e.email) = Upper( :pEmail )  ")
 public class EmpAccount implements UserDetails {
     @Id
     @Column(name = "EMP_ID")
