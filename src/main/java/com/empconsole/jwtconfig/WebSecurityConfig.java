@@ -51,11 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
+        httpSecurity.csrf().disable().cors().and()
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/user/register","/user/login").permitAll().
                 // all other requests need to be authenticate
-                and().authorizeRequests().antMatchers("*/auth/*").authenticated().and().
+                and().authorizeRequests().anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                 sessionManagement()
@@ -64,4 +64,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

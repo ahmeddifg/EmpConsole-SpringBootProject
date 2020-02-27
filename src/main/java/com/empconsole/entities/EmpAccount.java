@@ -120,4 +120,16 @@ public class EmpAccount implements UserDetails {
     public void setIsActive(int isActive) {
         this.isActive = isActive;
     }
+
+    @Override
+    public String toString() {
+        return "EmpAccount{" +
+                "empId=" + empId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", isActive=" + isActive +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

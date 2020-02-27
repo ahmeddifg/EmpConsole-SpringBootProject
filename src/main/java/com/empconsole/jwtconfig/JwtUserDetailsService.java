@@ -46,9 +46,9 @@ public class JwtUserDetailsService implements UserDetailsService {
             empAccount = this.userRepository.save(user);
 
         } catch (Exception e) {
-            if(e.getMessage().contains("USER_NAME_UNIQUE"))
-                throw  new UserNameUniqueException(user.userName);
-            else if(e.getMessage().contains("EMAIL_UNIQUE"))
+            if (e.getMessage().contains("USER_NAME_UNIQUE"))
+                throw new UserNameUniqueException(user.userName);
+            else if (e.getMessage().contains("EMAIL_UNIQUE"))
                 throw new EmailUniqueException(user.email);
         }
         return empAccount;

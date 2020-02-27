@@ -13,8 +13,15 @@ public class ProjectTypes {
     @Column(name = "PROJECT_TYPE_DESC")
     private String projectTypeDesc;
 
+//    @OneToMany
+//    @MapsId("projectType")
+//    @JoinColumn(name = "TYPE_ID", referencedColumnName = "PROJECT_TYPE")
+//    @Transient
+//    private List<Project> projects;
+
     public ProjectTypes() {
     }
+
 
     public ProjectTypes(long typeId, String projectTypeDesc) {
         this.typeId = typeId;
@@ -28,6 +35,8 @@ public class ProjectTypes {
     public void setTypeId(long typeId) {
         this.typeId = typeId;
     }
+
+
 
     public String getProjectTypeDesc() {
         return projectTypeDesc;

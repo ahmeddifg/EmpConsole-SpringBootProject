@@ -13,8 +13,10 @@ public class Project {
     private String projectName;
     @Column(name = "PROJECT_SHORT_DESC")
     private String projectShortDesc;
+    @Column(name= "PROJECT_TYPE")
+    private int projectMainType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("typeId")
     @JoinColumn(name = "PROJECT_TYPE" , referencedColumnName = "TYPE_ID")
     private ProjectTypes projectType;
@@ -22,11 +24,11 @@ public class Project {
     public Project() {
     }
 
-    public Project(long projectId, String projectName, String projectShortDesc, ProjectTypes projectType) {
+    public Project(long projectId, String projectName, String projectShortDesc, int projectMainType) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectShortDesc = projectShortDesc;
-        this.projectType = projectType;
+        this.projectMainType = projectMainType;
     }
 
     public long getProjectId() {
@@ -60,4 +62,13 @@ public class Project {
     public void setProjectType(ProjectTypes projectType) {
         this.projectType = projectType;
     }
+
+    public int getProjectMainType() {
+        return projectMainType;
+    }
+
+    public void setProjectMainType(int projectMainType) {
+        this.projectMainType = projectMainType;
+    }
 }
+
