@@ -1,9 +1,10 @@
 package com.empconsole.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table( name = "Project")
+@Table(name = "Project")
 public class Project {
     @Id
     @Column(name = "PROJECT_ID")
@@ -13,13 +14,18 @@ public class Project {
     private String projectName;
     @Column(name = "PROJECT_SHORT_DESC")
     private String projectShortDesc;
-    @Column(name= "PROJECT_TYPE")
+    @Column(name = "PROJECT_TYPE")
     private int projectMainType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("typeId")
-    @JoinColumn(name = "PROJECT_TYPE" , referencedColumnName = "TYPE_ID")
+    @JoinColumn(name = "PROJECT_TYPE", referencedColumnName = "TYPE_ID")
     private ProjectTypes projectType;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @MapsId("projectId")
+    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")
+    private List<ProjectRequirements> projectRequirements;
 
     public Project() {
     }
@@ -69,6 +75,14 @@ public class Project {
 
     public void setProjectMainType(int projectMainType) {
         this.projectMainType = projectMainType;
+    }
+
+    public List<ProjectRequirements> getProjectRequirements() {
+        return projectRequirements;
+    }
+
+    public void setProjectRequirements(List<ProjectRequirements> projectRequirements) {
+        this.projectRequirements = projectRequirements;
     }
 }
 
