@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    @Query(name = "", nativeQuery = true)
-    public List<Project> loadMyProjects(String empId) ;
+//    @Query(name = "", nativeQuery = true)
+//    public List<Project> loadMyProjects(String empId) ;
 }
