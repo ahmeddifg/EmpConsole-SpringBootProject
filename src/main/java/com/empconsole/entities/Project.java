@@ -17,15 +17,17 @@ public class Project {
     @Column(name = "PROJECT_TYPE")
     private int projectMainType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @MapsId("typeId")
     @JoinColumn(name = "PROJECT_TYPE", referencedColumnName = "TYPE_ID")
     private ProjectTypes projectType;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @MapsId("projectId")
     @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")
     private List<ProjectRequirements> projectRequirements;
+
+
 
     public Project() {
     }
@@ -84,5 +86,6 @@ public class Project {
     public void setProjectRequirements(List<ProjectRequirements> projectRequirements) {
         this.projectRequirements = projectRequirements;
     }
+
 }
 

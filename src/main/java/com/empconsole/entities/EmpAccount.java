@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "emp_account")
@@ -29,7 +30,6 @@ public class EmpAccount implements UserDetails {
 
     @Transient
     public String token;
-
 
     public EmpAccount() {
     }
@@ -121,15 +121,4 @@ public class EmpAccount implements UserDetails {
         this.isActive = isActive;
     }
 
-    @Override
-    public String toString() {
-        return "EmpAccount{" +
-                "empId=" + empId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", isActive=" + isActive +
-                ", token='" + token + '\'' +
-                '}';
-    }
 }
