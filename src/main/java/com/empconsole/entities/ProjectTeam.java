@@ -1,8 +1,11 @@
 package com.empconsole.entities;
 
 import com.empconsole.entities.embedded.ProjectTeamPk;
+import com.sun.istack.Nullable;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "project_team")
@@ -10,17 +13,13 @@ public class ProjectTeam {
     @EmbeddedId
     private ProjectTeamPk projectTeamPk;
 
-    @Column(name = "PROJECT_ID", insertable = false, updatable = false)
-    private long projectId;
-    @Column(name = "EMP_ID", insertable = false, updatable = false)
-    private long empId;
     @Column(name = "ROLE")
     private String role;
 
-    @ManyToOne
-    @MapsId("projectId")
-    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")
-    private Project project;
+
+    @ManyToOne(cascade = CascadeType.REFRESH , fetch = FetchType.EAGER)
+    @JoinColumn(name = "emp_id" , referencedColumnName = "emp_id" , updatable = false, insertable = false)
+    private EmpAccount empAccount;
 
     //////////////////////////////////////////////////////////////
     public ProjectTeam() {
@@ -47,27 +46,12 @@ public class ProjectTeam {
         this.role = role;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public EmpAccount getEmpAccount() {
+        return empAccount;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setEmpAccount(EmpAccount empAccount) {
+        this.empAccount = empAccount;
     }
 
-    public long getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(long empId) {
-        this.empId = empId;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 }

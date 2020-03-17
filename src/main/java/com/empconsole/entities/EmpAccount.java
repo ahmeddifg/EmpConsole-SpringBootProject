@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "emp_account")
 public class EmpAccount implements UserDetails {
     @Id
-    @Column(name = "EMP_ID")
+    @Column(name = "EMP_ID" ,updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long empId;
 
@@ -121,4 +121,15 @@ public class EmpAccount implements UserDetails {
         this.isActive = isActive;
     }
 
+    @Override
+    public String toString() {
+        return "EmpAccount{" +
+                "empId=" + empId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", isActive=" + isActive +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
