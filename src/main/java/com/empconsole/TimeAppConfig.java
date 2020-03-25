@@ -15,7 +15,7 @@ public class TimeAppConfig {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
         return builder -> {
-            builder.simpleDateFormat(dateFormat);
+            builder.simpleDateFormat(dateTimeFormat);
             builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
         };
     }

@@ -69,6 +69,12 @@ public class ProjectService {
         return this.projectRepository.loadMyProjects(currentPrincipalName.empId);
     }
 
+    public List<Project> getMyProjectsAsAdminService() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        EmpAccount currentPrincipalName = (EmpAccount) authentication.getPrincipal();
+        return this.projectRepository.loadMyProjectsAsAdmin(currentPrincipalName.empId);
+    }
+
     /////////////////////////////////////////////////////////////
     public ProjectRepository getProjectRepository() {
         return projectRepository;

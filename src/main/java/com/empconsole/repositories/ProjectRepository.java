@@ -14,4 +14,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "FROM Project a where exists" +
             " (select (1=1) from ProjectTeam b where b.projectTeamPk.projectId = a.projectId and  b.projectTeamPk.empId = ?1  )", nativeQuery = false)
     List<Project> loadMyProjects(long empId) ;
+
+    @Query(value = "FROM Project a where exists" +
+            " (select (1=1) from ProjectTeam b where b.projectTeamPk.projectId = a.projectId and  b.projectTeamPk.empId = ?1 and b.role = 'admin'  )", nativeQuery = false)
+    List<Project> loadMyProjectsAsAdmin(long empId) ;
 }

@@ -14,7 +14,16 @@ public interface UserRepository extends JpaRepository<EmpAccount, Long> {
 
     List<EmpAccount> findByEmail(@Param("pEmail") String pEmail);
 
+    // this function to load user account to be add to project team.
     @Query(value = "from EmpAccount e where e.empId not in" +
             " (select p.projectTeamPk.empId  from ProjectTeam p where p.projectTeamPk.projectId = ?1 )", nativeQuery = false)
     List<EmpAccount> loadAvailableAccountForProject(long projectId);
+
+    // this function load project team, i used it to assign task to member!
+    @Query(value = "from EmpAccount e where e.empId in" +
+            " (select p.projectTeamPk.empId  from ProjectTeam p where p.projectTeamPk.projectId = ?1 )", nativeQuery = false)
+    List<EmpAccount> loadUserAccountsInProject(long projectId);
+
+
+    List<EmpAccount> findByIsActive(int i);
 }

@@ -27,6 +27,16 @@ public class ProjectTeamController {
         return ResponseEntity.ok(this.projectTeamService.loadProjectTeamService(projectId));
     }
 
+
+    @GetMapping("/auth/allProjectAccounts/{projectId}")
+    public ResponseEntity<List<EmpAccount>> loadUserAccountsInProjectService(@PathVariable String  projectId) {
+        return ResponseEntity.ok(this.projectTeamService.loadUserAccountsInProjectService(projectId));
+    }
+    @GetMapping("/auth/allAccounts")
+    public ResponseEntity<List<EmpAccount>> loadUserAccountsService() {
+        return ResponseEntity.ok(this.projectTeamService.loadUserAccountsInService());
+    }
+
     @GetMapping("/auth/showAccountsToAdd/{projectId}")
     public ResponseEntity<List<EmpAccount>> getProjectTeamAvailableProjectMembers(@PathVariable String  projectId) {
         return ResponseEntity.ok(this.projectTeamService.getProjectTeamAvailableProjectMembersService(projectId));

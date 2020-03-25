@@ -41,6 +41,11 @@ public class ProjectController {
         return ResponseEntity.ok(this.projectService.getMyProjects());
     }
 
+    @GetMapping("/auth/allAdmin")
+    public ResponseEntity<List<Project>> getProjectsAdmin() {
+        return ResponseEntity.ok(this.projectService.getMyProjectsAsAdminService());
+    }
+
     @GetMapping("/auth/types")
     public ResponseEntity<List<ProjectTypes>> getProjectTypes() {
         return ResponseEntity.ok(this.projectService.getAllProjectTypes());

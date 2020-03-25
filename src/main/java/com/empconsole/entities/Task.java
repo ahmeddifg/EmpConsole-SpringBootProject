@@ -17,9 +17,11 @@ public class Task {
     @Column(name = "TASK_TYPE")
     private String taskType;
 
+    @Column(name = "ASSIGNED_BY")
+    private long taskOwnerId;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @MapsId("empId")
-    @JoinColumn(name = "ASSIGNED_BY" , referencedColumnName = "EMP_ID")
+    @JoinColumn(name = "ASSIGNED_BY", referencedColumnName = "EMP_ID", updatable = false, insertable = false)
     private EmpAccount taskOwner;
 
     @Column(name = "CREATED_DATE")
@@ -28,32 +30,42 @@ public class Task {
     @Column(name = "ASSIGNED_DATE")
     private Date assignedDate;
 
-    @Column(name= "EMP_ID")
-    private long assignedToId;
+    @Column(name = "EMP_ID")
+    private Long assignedToId;
 
     @Column(name = "PROJECT_ID")
-    private long projectId;
+    private Long projectId;
+
+    @Column(name = "Status")
+    private long status;
+
+    @Column(name = "COMPLETED_DATE")
+    private Date completedDate;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "EMP_ID" , referencedColumnName = "EMP_ID", updatable = false, insertable = false)
+    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID", updatable = false, insertable = false)
     private EmpAccount assignedTo;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID" ,insertable = false ,updatable = false)
+    @JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID", insertable = false, updatable = false)
     private Project project;
 
     public Task() {
     }
 
-    public Task(long taskId, String taskDesc, String taskType, EmpAccount taskOwner, Date createdDate, Date assignedDate, long assignedToId, long projectId) {
+    public Task(long taskId, String taskDesc, String taskType, long taskOwnerId,
+                Date createdDate, Date assignedDate,
+                long assignedToId, long projectId, long status, Date completedDate) {
         this.taskId = taskId;
         this.taskDesc = taskDesc;
         this.taskType = taskType;
-        this.taskOwner = taskOwner;
+        this.taskOwnerId = taskOwnerId;
         this.createdDate = createdDate;
         this.assignedDate = assignedDate;
         this.assignedToId = assignedToId;
         this.projectId = projectId;
+        this.status = status;
+        this.completedDate = completedDate;
     }
 
     public long getTaskId() {
@@ -120,19 +132,44 @@ public class Task {
         this.assignedDate = assignedDate;
     }
 
-    public long getAssignedToId() {
+
+    public long getStatus() {
+        return status;
+    }
+
+    public void setStatus(long status) {
+        this.status = status;
+    }
+
+    public long getTaskOwnerId() {
+        return taskOwnerId;
+    }
+
+    public void setTaskOwnerId(long taskOwnerId) {
+        this.taskOwnerId = taskOwnerId;
+    }
+
+    public Long getAssignedToId() {
         return assignedToId;
     }
 
-    public void setAssignedToId(long assignedToId) {
+    public void setAssignedToId(Long assignedToId) {
         this.assignedToId = assignedToId;
     }
 
-    public long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(long projectId) {
+    public void setProjectId(Long projectId) {
         this.projectId = projectId;
+    }
+
+    public Date getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(Date completedDate) {
+        this.completedDate = completedDate;
     }
 }

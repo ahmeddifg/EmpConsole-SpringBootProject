@@ -21,9 +21,13 @@ public class ProjectTeamService {
     }
 
 
-
     public List<ProjectTeam> loadProjectTeamService(String projectId) {
         return this.projectTeamRepository.queryByProjectId(Long.parseLong(projectId));
+    }
+
+    public List<EmpAccount> loadUserAccountsInProjectService(String projectId) {
+        List<EmpAccount> list = this.userRepository.loadUserAccountsInProject(Long.parseLong(projectId));
+        return list;
     }
 
     public ProjectTeam seProjectTeamService(ProjectTeam projectTeam) {
@@ -39,6 +43,10 @@ public class ProjectTeamService {
 
     public List<EmpAccount> getProjectTeamAvailableProjectMembersService(String projectId) {
         return this.userRepository.loadAvailableAccountForProject(Long.parseLong(projectId));
+    }
+
+    public List<EmpAccount> loadUserAccountsInService() {
+        return this.userRepository.findByIsActive(1);
     }
 
 
@@ -59,4 +67,6 @@ public class ProjectTeamService {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
 }
